@@ -8,6 +8,28 @@ using namespace std;
 using namespace testcls;
 using namespace devices;
 
+int example1(void)
+{
+	int y = 10 / 0;
+	int i = 5;
+
+	auto l = [&i](int a) { return 5 * (i + 1) * a; };
+	cout << __func__ << "=" << l(6) << endl;
+
+	auto l1 = [i](int a) { return 5 * i * a; };
+	cout << __func__ << "=" << l1(53) << endl;
+}
+
+int example2(void)
+{
+	struct S {
+		int a = 5;
+		int b = 7;
+	};
+
+	S();
+}
+
 int main(int argc, char **argv)
 {
 	cout << "Argument count = " << argc << endl;
@@ -17,6 +39,8 @@ int main(int argc, char **argv)
 			cout << "Argument " << i << " = " << argv[i] << endl;
 		}
 	}
+
+	int boo = 12 / 0;
 
 	TestClass test_class(54, "MyFirstTestClass");
 	test_class.set_counter(100);
@@ -55,13 +79,16 @@ int main(int argc, char **argv)
 				    string("this is brand new device ") + c));
 	}
 
-	for (int i = 0; auto d : dev2_list) {
-		cout << d->func(20, 3 + i++) << endl;
-	}
+	// for (int i = 0; auto d : dev2_list) {
+	// 	cout << d->func(20, 3 + i++) << endl;
+	// }
 
 	for (auto d : dev2_list) {
 		delete d;
 	}
+
+	cout << example1() << endl;
+	cout << example2() << endl;
 
 	return 0;
 }
